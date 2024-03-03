@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { IoMdCloseCircle } from "react-icons/io";
 import { IoIosAddCircle } from "react-icons/io";
+import { FaEdit } from "react-icons/fa";
 function Todo() {
 
 const [list,setList]=useState("")
@@ -24,9 +25,24 @@ return [...todoItems,list]
 
 }
 
+const removeItems =(index)=>{
 
-const removeItems =()=>{
-    
+const deletedItems = items.filter((arrayElement,id) => id !== index)
+setItems(deletedItems)
+
+
+}
+
+
+const clearAll =()=>{
+
+setItems([])
+
+}
+
+
+const editItems =()=>{
+
 }
 
     return (
@@ -69,15 +85,25 @@ const removeItems =()=>{
 return(<>
 
 <div key={index} className='flex justify-start mt-4 ml-11 text-purple-500 text-base md:text-lg font-semibold  md:font-medium'>
+<IoMdCloseCircle onClick={()=>removeItems(index)} className=' cursor-pointer mr-2 text-2xl mt-[3px]' />    
+
+<FaEdit onClick={editItems}  className='cursor-pointer text-xl flex justify-center items-center mt-[3px] mr-2 ' />
     
-<IoMdCloseCircle onClick={removeItems} className=' mr-2 text-2xl mt-[3px]' />    
-    {mytodoItems}</div>
+    {mytodoItems}
+    
+    
+    </div>
 
 </>)
     })
 
- }   
+ }
 
+{ items.length >=1 && 
+  <div className='flex justify-center items-center p-3 my-5 text-red-500 hover:text-red-700 hover:text-xl cursor-pointer font-bold text-lg' onClick={clearAll}>
+    Delete All
+  </div>
+}
                 </div>
 
             </div>
