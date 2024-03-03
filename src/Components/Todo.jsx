@@ -1,11 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoMdCloseCircle } from "react-icons/io";
 import { IoIosAddCircle } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
 function Todo() {
 
+
+const getLocalItems =()=>{
+
+const localList  = localStorage.getItem('list')
+
+if (localList){
+    return JSON.parse(localStorage.getItem('list'))
+}
+
+else {
+
+return [];
+
+}
+
+}
+
+
 const [list,setList]=useState("")
-const [items,setItems]=useState([])
+const [items,setItems]=useState(getLocalItems())
 
 const handleItems=(e)=>{
     
@@ -17,11 +35,22 @@ const handleItems=(e)=>{
 }
 
 const handleClick =()=>{
+
+if(list==""){
+    alert("Please write some task!")
+}else {
+
+
     setItems((todoItems)=>{
 return [...todoItems,list]
 
     })
+
+
+
+    
     setList("")
+}
 
 }
 
@@ -44,6 +73,13 @@ setItems([])
 const editItems =()=>{
 
 }
+
+// for set items in local storage
+
+localStorage.setItem('list',JSON.stringify(items))
+
+
+
 
     return (
         <>
